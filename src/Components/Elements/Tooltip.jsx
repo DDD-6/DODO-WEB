@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const TooltipDiv = styled.div`
   // 텍스트 가운데에 위치
@@ -8,10 +8,10 @@ const TooltipDiv = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  width: ${(props) => props.width || "172px"};
+  width: ${(props) => props.width};
   min-width: 100px;
   min-height: 40px;
-  height: ${(props) => props.height || "80px"};
+  height: ${(props) => props.height};
   left: 16px;
   background-color: black;
   color: white;
@@ -32,7 +32,6 @@ const TooltipDiv = styled.div`
     border-left: 8px solid transparent;
     border-bottom: 8px solid black;
     border-right: 8px solid transparent;
-    // 왼, 가운데, 오 정하기
   }
 `;
 
@@ -43,6 +42,17 @@ const Tooltip = ({ height, width, content }) => {
       {content}
     </TooltipDiv>
   );
+};
+
+Tooltip.propTypes = {
+  height: PropTypes.string,
+  width: PropTypes.string,
+  content: PropTypes.string.isRequired,
+};
+
+Tooltip.defaultProps = {
+  height: "80px",
+  width: "172px",
 };
 
 export default Tooltip;
