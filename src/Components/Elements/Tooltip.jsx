@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const TooltipDiv = styled.div`
   // 텍스트 가운데에 위치
@@ -8,10 +8,10 @@ const TooltipDiv = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  width: ${(props) => props.width};
+  width: ${props => props.width};
   min-width: 100px;
   min-height: 40px;
-  height: ${(props) => props.height};
+  height: ${props => props.height};
   left: 16px;
   background-color: black;
   color: white;
@@ -25,7 +25,7 @@ const TooltipDiv = styled.div`
 
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     top: -8px;
     left: 15px;
     border-top: 0;
@@ -51,8 +51,8 @@ Tooltip.propTypes = {
 };
 
 Tooltip.defaultProps = {
-  height: "80px",
-  width: "172px",
+  height: '80px',
+  width: '172px',
 };
 
 export default Tooltip;

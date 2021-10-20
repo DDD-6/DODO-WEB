@@ -1,5 +1,5 @@
-import React from "react";
-import Toast from "../Components/Elements/Toast";
+import React, { useRef } from 'react';
+import Toast from '../Components/Elements/Toast';
 
 const Test = () => {
   return (
