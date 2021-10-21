@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { ReactComponent as Info } from "../../Assets/icons/Info.svg";
 
 const ToastDiv = styled.div`
   width: 288px;
@@ -18,17 +19,18 @@ const ToastDiv = styled.div`
     align-items: center;
     height: 28px;
   }
-  & > div span + span {
-    margin-left: 5px;
-  }
+`;
+
+const Content = styled.p`
+  margin-left: 5px;
 `;
 
 const Toast = ({ content }) => {
   return (
     <ToastDiv>
       <div>
-        <span>icon</span>
-        <span>{content}</span>
+        <Info />
+        <Content>{content}</Content>
       </div>
     </ToastDiv>
   );
