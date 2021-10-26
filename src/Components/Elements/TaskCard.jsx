@@ -22,6 +22,7 @@ const TaskCardDiv = styled.div`
 
 const Title = styled.p`
   font-size: 20px;
+  font-weight: 600;
   width: 180px;
   padding: 0;
   margin: 0;
