@@ -66,7 +66,7 @@ const Modal = ({ title, description, visible, closeModal }) => {
   //     />
   return (
     <>
-      <Dim visible={visible} onClick={closeModal} closeModal={closeModal} />
+      <Dim visible={visible} closeModal={closeModal} />
       <ModalDiv visible={visible}>
         <div>
           <ModalTitleDiv>
