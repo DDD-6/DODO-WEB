@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import InputField from '../Components/Elements/InputField';
 import Toast from '../Components/Elements/Toast';
 
 const Test = () => {
-  const inputRef = useRef(null);
   function onChange(e) {
     console.log(e.currentTarget.value);
   }
@@ -11,11 +10,20 @@ const Test = () => {
     <>
       <h1>Test Page</h1>
       <Toast content="메세지" />
+      <br />
       <InputField
         id="테스트"
-        title="테스트인풋"
+        label="테스트인풋"
         descripttion="설명"
-        inputProps={{ placeholder: '테스트', onChange, ref: inputRef }}
+        inputProps={{ placeholder: '테스트', onChange }}
+        inputType="text"
+      />
+      <br />
+      <InputField
+        id="date"
+        label="생년월일"
+        inputProps={{ onChange }}
+        inputType="date"
       />
     </>
   );
