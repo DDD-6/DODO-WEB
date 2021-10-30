@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { ReactComponent as Info } from "../../Assets/icons/Info.svg";
 
 const ToastDiv = styled.div`
+  font-family: "Pretendard Variable";
   position: fixed;
   top: 33px;
   left: 16px;
@@ -23,6 +24,7 @@ const ToastDiv = styled.div`
 `;
 
 const Content = styled.p`
+  font-weight: 600;
   margin-left: 5px;
 `;
 
@@ -30,7 +32,7 @@ const Toast = ({ content }) => {
   return (
     <ToastDiv>
       <div>
-        <Info />
+        <Info width="19.5" height="19.5" />
         <Content>{content}</Content>
       </div>
     </ToastDiv>
