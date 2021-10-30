@@ -4,14 +4,15 @@ import PropTypes from "prop-types";
 import { ReactComponent as Info } from "../../Assets/icons/Info.svg";
 
 const ToastDiv = styled.div`
+  position: fixed;
+  top: 33px;
+  left: 16px;
   width: 288px;
   height: 60px;
   border-radius: 16px;
-  background-color: black;
-  opacity: 0.8;
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   font-size: 16px;
-  margin: 0 16px;
   padding: 16px;
   box-sizing: border-box;
   & > div {
