@@ -10,6 +10,7 @@ const Root = styled.div`
 
 const Progess = styled(Root)`
   width: ${({ percent }) => `${percent || 0}%`};
+  max-width: 100%;
   background: #ffe76b;
 `;
 

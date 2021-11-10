@@ -38,22 +38,25 @@ const NavBar = ({ ...rest }) => {
   const [active, setActive] = useState(0);
 
   function goHome() {
-    // 홈으로 가기
+    // !fn 홈으로 가기
     if (active !== 0) setActive(0);
   }
 
   function goProject() {
-    // 프로젝트 페이지로 가기
+    // !fn 프로젝트 페이지로 가기
     if (active !== 1) setActive(1);
   }
 
   function goProfile() {
-    // 프로필 페이지로 가기
+    // !fn 프로필 페이지로 가기
     if (active !== 2) setActive(2);
   }
 
   useEffect(() => {
     switch (page) {
+      case '/project':
+        setActive(1);
+        break;
       default:
         setActive(0);
     }
