@@ -16,7 +16,7 @@ const TaskCardDiv = styled.div`
   padding: 16px;
   margin: 0 10px;
   border-radius: 16px;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${props => props.backgroundColor};
   box-sizing: border-box;
 `;
 
@@ -131,7 +131,7 @@ const TaskCard = ({ backgroundColor }) => {
           </>
         ) : (
           <>
-            {TESTDATA.map((data) => (
+            {TESTDATA.map(data => (
               <ListItemDiv>
                 {/* 체크 UI */}
                 {data.isChecked ? <Checked /> : <Normal />}

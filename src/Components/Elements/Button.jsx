@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import CloseIcon from '../../Assets/icons/X.svg';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import CloseIcon from "../../Assets/icons/X.svg";
 
 const Root = styled.button`
   display: flex;
@@ -44,7 +44,7 @@ CloseButton.defaultProps = {
 };
 
 const BasicRoot = styled(Root)`
-  width: ${({ size }) => (size ? `${size}px` : '100%')};
+  width: ${({ size }) => (size ? `${size}px` : "100%")};
   height: 58px;
   font-size: 20px;
   font-weight: 600;
@@ -63,7 +63,7 @@ export const BasicButton = ({ size, ...rest }) => (
 );
 
 BasicButton.propTypes = {
-  size: PropTypes.oneOf([undefined, '120', '140']),
+  size: PropTypes.oneOf([undefined, "120", "140"]),
 };
 
 BasicButton.defaultProps = {
@@ -80,7 +80,7 @@ export const PrimaryButton = ({ size, ...rest }) => (
 );
 
 PrimaryButton.propTypes = {
-  size: PropTypes.oneOf([undefined, '120', '140']),
+  size: PropTypes.oneOf([undefined, "120", "140"]),
 };
 
 PrimaryButton.defaultProps = {

@@ -1,6 +1,6 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Test from '../Pages/Test';
+import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Test from "../Pages/Test";
 
 const Router = () => {
   return (

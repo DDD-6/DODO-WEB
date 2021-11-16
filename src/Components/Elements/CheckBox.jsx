@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import CheckedIcon from '../../Assets/icons/Checked.svg';
+import React, { useState } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import CheckedIcon from "../../Assets/icons/Checked.svg";
 
 const CheckBoxButton = styled.button`
   width: 24px;
@@ -27,11 +27,11 @@ function CheckBox({ onActive, onUnActive }) {
   const [active, setActive] = useState(false);
 
   function onToggle(e) {
-    const isActive = e.currentTarget.classList.contains('active');
+    const isActive = e.currentTarget.classList.contains("active");
     if (isActive && onUnActive) onUnActive();
     else if (!isActive && onActive) onActive();
     setActive(!isActive);
-    e.currentTarget.classList.toggle('active');
+    e.currentTarget.classList.toggle("active");
   }
 
   return (

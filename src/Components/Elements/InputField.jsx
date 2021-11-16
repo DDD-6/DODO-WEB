@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import React, { useRef, useState, useEffect } from 'react';
-import CharicterIcon from '../../Assets/icons/Cat.svg';
-import WarningIcon from '../../Assets/icons/CircleWavyWarning.svg';
-import EyeIcon from '../../Assets/icons/Eye.svg';
-import EyeClosedIcon from '../../Assets/icons/EyeClosed.svg';
-import XCircleIcon from '../../Assets/icons/XCircle.svg';
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import React, { useRef, useState, useEffect } from "react";
+import CharicterIcon from "../../Assets/icons/Cat.svg";
+import WarningIcon from "../../Assets/icons/CircleWavyWarning.svg";
+import EyeIcon from "../../Assets/icons/Eye.svg";
+import EyeClosedIcon from "../../Assets/icons/EyeClosed.svg";
+import XCircleIcon from "../../Assets/icons/XCircle.svg";
 
 const InputFieldset = styled.fieldset`
   position: relative;
@@ -27,7 +27,7 @@ const Input = styled.input`
   line-height: 34px;
   border: 0;
   border-bottom: 2px solid
-    ${({ isError }) => (!isError ? '#e2e2e2' : '#EA4335')};
+    ${({ isError }) => (!isError ? "#e2e2e2" : "#EA4335")};
 
   &:focus {
     outline: 0;
@@ -85,24 +85,24 @@ const InputField = ({
 
   function viewPw() {
     if (inputRef.current === null) return;
-    inputRef.current.type = 'text';
+    inputRef.current.type = "text";
     setIsActive(true);
   }
 
   function returnInputType() {
     if (inputRef.current === null) return;
-    inputRef.current.type = inputType || 'text';
+    inputRef.current.type = inputType || "text";
     setIsActive(false);
   }
 
   function clearInputValue() {
     if (inputRef.current === null) return;
-    inputRef.current.value = '';
+    inputRef.current.value = "";
   }
 
   function onChangeInput(e) {
-    if (e.currentTarget.value === '' && hasValue) setHasVlaue(false);
-    else if (e.currentTarget.value !== '' && !hasValue) setHasVlaue(true);
+    if (e.currentTarget.value === "" && hasValue) setHasVlaue(false);
+    else if (e.currentTarget.value !== "" && !hasValue) setHasVlaue(true);
     onChange(e);
   }
 
@@ -117,13 +117,13 @@ const InputField = ({
         {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
         <Input
           id={id}
-          type={inputType || 'text'}
+          type={inputType || "text"}
           ref={inputRef}
           onChange={e => onChangeInput(e)}
           isError={isError}
           {...inputPropsRest}
         />
-        {inputType === 'password' && (
+        {inputType === "password" && (
           <InputButtonWrap>
             {hasValue && (
               <button
@@ -134,7 +134,7 @@ const InputField = ({
               >
                 <img
                   src={!isActive ? EyeIcon : EyeClosedIcon}
-                  alt={!isActive ? '눈 아이콘' : '감은눈 아이콘'}
+                  alt={!isActive ? "눈 아이콘" : "감은눈 아이콘"}
                 />
               </button>
             )}
@@ -174,11 +174,11 @@ InputField.propTypes = {
 };
 
 InputField.defaultProps = {
-  label: '',
-  descripttion: '',
+  label: "",
+  descripttion: "",
   isError: false,
   inputProps: {},
-  inputType: 'text',
+  inputType: "text",
 };
 
 export default InputField;

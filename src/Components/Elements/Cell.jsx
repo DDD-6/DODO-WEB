@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import { ReactComponent as ArrowRight } from '../../Assets/icons/ArrowRight.svg';
-import { ReactComponent as CaretDown } from '../../Assets/icons/CaretDown.svg';
+import React from "react";
+import styled from "styled-components";
+import { ReactComponent as ArrowRight } from "../../Assets/icons/ArrowRight.svg";
+import { ReactComponent as CaretDown } from "../../Assets/icons/CaretDown.svg";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Pretendard Variable';
+  font-family: "Pretendard Variable";
   width: 292px;
 `;
 
@@ -30,9 +30,9 @@ const ItemBox = styled.div`
 // props 로 각 페이지 연결해주는 로직 구현 예정
 
 const TESTLIST = [
-  { title: '문의하기', button: 'arrowRight' },
-  { title: '알림 설정', button: 'switch' },
-  { title: '약관 및 정책', button: 'caretDown' },
+  { title: "문의하기", button: "arrowRight" },
+  { title: "알림 설정", button: "switch" },
+  { title: "약관 및 정책", button: "caretDown" },
 ];
 
 const Cell = () => {
@@ -47,7 +47,7 @@ const Cell = () => {
   const renderItem = () =>
     TESTLIST.map(item => {
       switch (item.button) {
-        case 'arrowRight':
+        case "arrowRight":
           return (
             <>
               <ItemBox>
@@ -56,7 +56,7 @@ const Cell = () => {
               </ItemBox>
             </>
           );
-        case 'caretDown':
+        case "caretDown":
           return (
             <ItemBox>
               <p>{item.title}</p>

@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const SwitchButton = styled.button`
   width: 51px;
@@ -32,10 +32,10 @@ const SwitchControl = styled.div`
 
 function Switch({ onActive, onUnActive }) {
   function onToggle(e) {
-    const isActive = e.currentTarget.classList.contains('active');
+    const isActive = e.currentTarget.classList.contains("active");
     if (isActive && onUnActive) onUnActive();
     else if (!isActive && onActive) onActive();
-    e.currentTarget.classList.toggle('active');
+    e.currentTarget.classList.toggle("active");
   }
 
   return (

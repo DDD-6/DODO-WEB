@@ -6,7 +6,7 @@ import Dim from "./Dim";
 
 const ModalDiv = styled.div`
   font-family: "Pretendard Variable";
-  display: ${(props) => (props.visible ? "block" : "none")};
+  display: ${props => (props.visible ? "block" : "none")};
   position: fixed;
   top: 253px;
   left: 16px;

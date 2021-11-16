@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import HouseDefaultIcon from '../../Assets/icons/HouseDefault.svg';
-import HouseSelectIcon from '../../Assets/icons/HouseSelect.svg';
-import FolderDefaultIcon from '../../Assets/icons/FolderDefault.svg';
-import FolderSelectIcon from '../../Assets/icons/FolderSelect.svg';
-import FolderSimplePlusIcon from '../../Assets/icons/FolderSimplePlus.svg';
-import UserCircleDefaultIcon from '../../Assets/icons/UserCircleDefault.svg';
-import UserCircleSelectIcon from '../../Assets/icons/UserCircleSelect.svg';
-import PlusIcon from '../../Assets/icons/Plus.svg';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import HouseDefaultIcon from "../../Assets/icons/HouseDefault.svg";
+import HouseSelectIcon from "../../Assets/icons/HouseSelect.svg";
+import FolderDefaultIcon from "../../Assets/icons/FolderDefault.svg";
+import FolderSelectIcon from "../../Assets/icons/FolderSelect.svg";
+import FolderSimplePlusIcon from "../../Assets/icons/FolderSimplePlus.svg";
+import UserCircleDefaultIcon from "../../Assets/icons/UserCircleDefault.svg";
+import UserCircleSelectIcon from "../../Assets/icons/UserCircleSelect.svg";
+import PlusIcon from "../../Assets/icons/Plus.svg";
 
 const Root = styled.div`
   display: inline-flex;
@@ -34,7 +34,7 @@ const NavButton = styled.button`
 `;
 
 const NavBar = ({ ...rest }) => {
-  const page = '/';
+  const page = "/";
   const [active, setActive] = useState(0);
 
   function goHome() {
@@ -54,7 +54,7 @@ const NavBar = ({ ...rest }) => {
 
   useEffect(() => {
     switch (page) {
-      case '/project':
+      case "/project":
         setActive(1);
         break;
       default:

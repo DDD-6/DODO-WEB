@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const DimDiv = styled.div`
-  display: ${(props) => (props.visible ? "block" : "none")};
+  display: ${props => (props.visible ? "block" : "none")};
   position: fixed;
   top: 0;
   left: 0;
