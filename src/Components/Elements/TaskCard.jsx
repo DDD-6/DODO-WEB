@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -6,6 +7,7 @@ import { ReactComponent as Normal } from "../../Assets/icons/ListIconNormal.svg"
 import { ReactComponent as Checked } from "../../Assets/icons/ListIconChecked.svg";
 import { ReactComponent as DotThreeVertical } from "../../Assets/icons/DotsThreeVertical.svg";
 import { ReactComponent as Plus } from "../../Assets/icons/PlusCircle.svg";
+import Colors from "../../Assets/Colors/Colors";
 
 const TaskCardDiv = styled.div`
   font-family: "Pretendard Variable";
@@ -16,7 +18,8 @@ const TaskCardDiv = styled.div`
   padding: 16px;
   margin: 0 10px;
   border-radius: 16px;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${Colors.lavender};
+  background-color: ${props => props.color};
   box-sizing: border-box;
 `;
 
@@ -28,39 +31,35 @@ const Title = styled.p`
   margin: 0;
   margin-left: 10px;
   line-height: 34px;
-  opacity: 80%;
+  color: ${Colors.black_opacity_80};
 `;
 
 const TitleDiv = styled.div`
   display: flex;
   align-items: center;
   padding-bottom: 32px;
+  // d-day
+  & > p:nth-child(3) {
+    font-size: 14px;
+    line-height: 24px;
+  }
 `;
 
 const ListDiv = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const ListItemDiv = styled.div`
   display: flex;
-  padding-bottom: 16px;
-  width: 256px;
-  height: 62px;
-  & p {
-    padding: 0;
-    margin: 0;
-  }
-  & > div {
-    width: 220px;
-    margin-left: 12px;
-  }
+  flex-direction: column;
+
   // todo title
   & > div p:nth-child(1) {
     font-size: 20px;
     font-weight: 400;
-    opacity: 80%;
+    width: 180px;
+    color: ${Colors.black_opacity_80};
     // 중심이 맞게
     line-height: 25px;
   }
@@ -68,9 +67,31 @@ const ListItemDiv = styled.div`
   & > div p:nth-child(2) {
     font-size: 16px;
     line-height: 28px;
-    opacity: 40%;
+    color: ${Colors.black_opacity_40};
   }
 `;
+
+const Item = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  & > div:nth-child(2) {
+    margin-left: 12px;
+
+    p:nth-child(1) {
+      color: ${props => (props.line ? Colors.black_opacity_40 : Colors.black)};
+      text-decoration: ${props => (props.line ? "line-through" : "none")};
+    }
+    p:nth-child(2) {
+      display: ${props => (props.line ? "none" : "block")};
+    }
+  }
+  // 점 세 개 버튼
+  & > svg {
+    cursor: pointer;
+  }
+`;
+
+const CheckDiv = styled.div``;
 
 const InfoDiv = styled.div`
   box-sizing: border-box;
@@ -80,6 +101,12 @@ const InfoDiv = styled.div`
   justify-content: space-between;
   /* width: 172px; */
   height: 64px;
+
+  svg {
+    :hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 const InfoText = styled.p`
@@ -91,66 +118,65 @@ const InfoText = styled.p`
   line-height: 24px;
 `;
 
-// TEST DATA
-const TESTDATA = [
-  {
-    id: 1,
-    content: "밥 먹기",
-    rank: "아주 중요",
-    isChecked: false,
-  },
-  {
-    id: 2,
-    content: "토익 풀기",
-    rank: "보통",
-    isChecked: true,
-  },
-  {
-    id: 3,
-    content: "강의 듣기",
-    rank: "아주 중요",
-    isChecked: false,
-  },
-];
-
-const TaskCard = ({ backgroundColor }) => {
+const TaskCard = ({ listData }) => {
+  const colorList = [
+    Colors.lavender,
+    Colors.pink,
+    Colors.skyblue,
+    Colors.yellow,
+  ];
+  const randomIndex = Math.floor(Math.random() * 3);
   return (
-    <TaskCardDiv backgroundColor={backgroundColor}>
-      <TitleDiv>
-        <RectangleIcon />
-        <Title>문제풀이</Title>
-        <div>D-24</div>
-      </TitleDiv>
-      <ListDiv>
-        {TESTDATA.length === 0 ? (
-          <>
-            <InfoDiv>
-              <Plus />
-              <InfoText>할 일을 등록하고 관리해보세요.</InfoText>
-            </InfoDiv>
-          </>
+    <>
+      {listData.map(data =>
+        data.todos.length === 0 ? (
+          <TaskCardDiv color={colorList[randomIndex]}>
+            <ListDiv>
+              <TitleDiv>
+                <RectangleIcon />
+                <Title>{data.title}</Title>
+                <p>D-{data.Dday}</p>
+              </TitleDiv>
+              <InfoDiv>
+                <Plus />
+                <InfoText>할 일을 등록하고 관리해보세요.</InfoText>
+              </InfoDiv>
+            </ListDiv>
+          </TaskCardDiv>
         ) : (
-          <>
-            {TESTDATA.map((data) => (
+          <TaskCardDiv color={colorList[randomIndex]}>
+            <ListDiv>
+              <TitleDiv>
+                <RectangleIcon />
+                <Title>{data.title}</Title>
+                <p>D-{data.Dday}</p>
+              </TitleDiv>
               <ListItemDiv>
                 {/* 체크 UI */}
-                {data.isChecked ? <Checked /> : <Normal />}
-                <div>
-                  <p key={data.id}>{data.content}</p>
-                  <p>{data.rank}</p>
-                </div>
-                <DotThreeVertical />
+                {data.todos.map(list => (
+                  <Item line={list.isChecked}>
+                    <CheckDiv>
+                      {list.isChecked ? <Checked /> : <Normal />}
+                    </CheckDiv>
+                    <div>
+                      <p key={list.id}>{list.content}</p>
+                      <p>{list.rank}</p>
+                    </div>
+                    <DotThreeVertical />
+                  </Item>
+                ))}
               </ListItemDiv>
-            ))}
-          </>
-        )}
-      </ListDiv>
-    </TaskCardDiv>
+            </ListDiv>
+          </TaskCardDiv>
+        ),
+      )}
+    </>
   );
 };
 
 TaskCard.propTypes = {
-  backgroundColor: PropTypes.string.isRequired,
+  // backgroundColor: PropTypes.string.isRequired,
+  listData: PropTypes.array.isRequired,
 };
 
 export default TaskCard;

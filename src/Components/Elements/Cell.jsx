@@ -1,7 +1,11 @@
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable no-undef */
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { ReactComponent as ArrowRight } from "../../Assets/icons/ArrowRight.svg";
 import { ReactComponent as CaretDown } from "../../Assets/icons/CaretDown.svg";
+import Colors from "../../Assets/Colors/Colors";
 
 const Container = styled.div`
   display: flex;
@@ -13,13 +17,21 @@ const Container = styled.div`
 
 const ItemBox = styled.div`
   width: 260px;
+  line-height: 34px;
   display: flex;
+  padding: 16px 0;
   align-items: center;
   justify-content: space-between;
   border-top: 0.5px solid #141414;
 
+  & > * {
+    :hover {
+      cursor: pointer;
+    }
+  }
+
   & > p {
-    color: #141414;
+    color: ${Colors.grey_900};
     font-size: 20px;
     font-weight: 600;
     line-height: 34px;
@@ -29,13 +41,7 @@ const ItemBox = styled.div`
 // page 를 옮겨갈 때는 LIST 에 key value 를 추가해서
 // props 로 각 페이지 연결해주는 로직 구현 예정
 
-const TESTLIST = [
-  { title: "문의하기", button: "arrowRight" },
-  { title: "알림 설정", button: "switch" },
-  { title: "약관 및 정책", button: "caretDown" },
-];
-
-const Cell = () => {
+const Cell = ({ listData }) => {
   // * 컴포넌트 설명 *
 
   // renderItem : List 에 있는 값들(title, button...)을 차례로 출력하며,
@@ -45,14 +51,14 @@ const Cell = () => {
   // 추후에 다른 페이지로 연결될 경우 항목에 link 속성을 추가하여
   // 연결시킬 예정이다.
   const renderItem = () =>
-    TESTLIST.map((item) => {
+    listData.map(item => {
       switch (item.button) {
         case "arrowRight":
           return (
             <>
               <ItemBox>
                 <p>{item.title}</p>
-                <ArrowRight />
+                <ArrowRight width="24" height="24" />
               </ItemBox>
             </>
           );
@@ -60,7 +66,7 @@ const Cell = () => {
           return (
             <ItemBox>
               <p>{item.title}</p>
-              <CaretDown />
+              <CaretDown width="24" height="24" />
             </ItemBox>
           );
         default:
@@ -73,6 +79,10 @@ const Cell = () => {
       }
     });
   return <Container>{renderItem()}</Container>;
+};
+
+Cell.propTypes = {
+  listData: PropTypes.array.isRequired,
 };
 
 export default Cell;
