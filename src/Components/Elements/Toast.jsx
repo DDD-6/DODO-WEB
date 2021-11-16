@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { ReactComponent as Info } from "../../Assets/icons/Info.svg";
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { ReactComponent as Info } from '../../Assets/icons/Info.svg';
 
 const ToastDiv = styled.div`
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   position: fixed;
   top: 33px;
   left: 16px;
