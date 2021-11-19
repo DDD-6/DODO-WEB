@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BasicButton, PrimaryButton } from "../Components/Elements/Button";
 import InputField from "../Components/Elements/InputField";
 
-const Root = styled.div`
+const Root = styled.main`
   padding: 99px 0 68px;
 `;
 
