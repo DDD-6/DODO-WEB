@@ -2,6 +2,9 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+*{
+	box-sizing: border-box;
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -49,12 +52,12 @@ html{
   font-size: 20px;
   font-family: 'Pretendard Variable';
 }
-h1 {
+h2 {
 	font-size: 32px;
 	font-weight: 800;
 	line-height: 42px;
 }
-h2 {
+h3 {
 	font-size: 24px;
 	font-weight: 700;
 	line-height: 32px;

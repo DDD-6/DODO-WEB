@@ -65,11 +65,11 @@ const ProjectThumb = styled.img`
 function RenderManagement({ step = 0, onStart }) {
   return step === 0 ? (
     <>
-      <h1>
+      <h2>
         DODO LIST에
         <br />
         오신 것을 환영해요!
-      </h1>
+      </h2>
       <StartButton onClick={() => onStart()}>시작</StartButton>
     </>
   ) : (

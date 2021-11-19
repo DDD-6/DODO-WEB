@@ -2,6 +2,7 @@ import Colors from "./Colors/Colors";
 import Fonts from "./fonts/Font";
 
 export default {
+  main_width: "width: 320px;",
   spacer: {
     64: "padding-bottom: 64px;",
     56: "padding-bottom: 56px;",

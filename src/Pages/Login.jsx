@@ -7,7 +7,7 @@ const Root = styled.main`
   padding: 99px 0 68px;
 `;
 
-const DoDoTitle = styled.h1`
+const DoDoTitle = styled.h2`
   margin-bottom: 47px;
   text-align: center;
 `;
