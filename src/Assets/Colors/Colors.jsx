@@ -2,6 +2,7 @@ export default {
   black: "#000000",
   white: "#ffffff",
   pink: "#f9e0e7",
+  pastel_red: "#CC9491",
   grass: "#e2ec63",
   teal: "#80eac3",
   grey_900: "#141414",

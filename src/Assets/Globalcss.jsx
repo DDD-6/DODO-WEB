@@ -59,6 +59,11 @@ h2 {
 	font-weight: 700;
 	line-height: 32px;
 }
+button {
+	padding: 0;
+	border: 0;
+	cursor: pointer;
+}
 `;
 
 const GlobalCss = () => {

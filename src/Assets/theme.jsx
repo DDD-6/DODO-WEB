@@ -1,4 +1,5 @@
 import Colors from "./Colors/Colors";
+import Fonts from "./fonts/Font";
 
 export default {
   spacer: {
@@ -14,5 +15,6 @@ export default {
   "spacer-w": {
     16: "padding-left: 16px",
   },
+  font: Fonts,
   color: Colors,
 };
