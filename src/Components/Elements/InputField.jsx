@@ -6,6 +6,7 @@ import WarningIcon from "../../Assets/icons/CircleWavyWarning.svg";
 import EyeIcon from "../../Assets/icons/Eye.svg";
 import EyeClosedIcon from "../../Assets/icons/EyeClosed.svg";
 import XCircleIcon from "../../Assets/icons/XCircle.svg";
+import CalendarIcon from "../../Assets/icons/Calendar.svg";
 
 const InputFieldset = styled.fieldset`
   position: relative;
@@ -32,6 +33,15 @@ const Input = styled.input`
   &:focus {
     outline: 0;
     border-color: #000000;
+  }
+
+  &[type="date"] {
+    cursor: text;
+  }
+
+  &[type="date"]::-webkit-calendar-picker-indicator {
+    background: url(${CalendarIcon});
+    cursor: pointer;
   }
 `;
 
@@ -103,7 +113,7 @@ const InputField = ({
   function onChangeInput(e) {
     if (e.currentTarget.value === "" && hasValue) setHasVlaue(false);
     else if (e.currentTarget.value !== "" && !hasValue) setHasVlaue(true);
-    onChange(e);
+    if (onChange) onChange(e);
   }
 
   useEffect(() => {
@@ -182,3 +192,61 @@ InputField.defaultProps = {
 };
 
 export default InputField;
+
+const TextFieldWrap = styled.div`
+  padding: 16px 8px 16px 16px;
+  border-radius: 16px;
+  background: ${({ theme }) => theme.color.grey_50};
+`;
+
+const TextField = styled.textarea`
+  width: 100%;
+  height: 153px;
+  overflow-y: auto;
+`;
+
+export const MemoField = ({
+  id,
+  label,
+  descripttion,
+  isError,
+  textareaProps,
+}) => {
+  return (
+    <>
+      <fieldset>
+        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+        <TextFieldWrap>
+          <TextField id={id} {...textareaProps} />
+        </TextFieldWrap>
+      </fieldset>
+      {descripttion &&
+        (!isError ? (
+          <InputDescript>
+            <img src={CharicterIcon} alt="캐릭터 아이콘" />
+            {descripttion}
+          </InputDescript>
+        ) : (
+          <ErrorDescript>
+            <img src={WarningIcon} alt="에러 아이콘" />
+            {descripttion}
+          </ErrorDescript>
+        ))}
+    </>
+  );
+};
+
+MemoField.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  descripttion: PropTypes.string,
+  isError: PropTypes.bool,
+  textareaProps: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.any])),
+};
+
+MemoField.defaultProps = {
+  label: "",
+  descripttion: "",
+  isError: false,
+  textareaProps: {},
+};
