@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/forbid-prop-types */
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { ReactComponent as RectangleIcon } from "../../Assets/icons/Rectangle.svg";
@@ -118,7 +120,74 @@ const InfoText = styled.p`
   line-height: 24px;
 `;
 
+// const TESTDATA = [
+//   {
+//     id: 1,
+//     title: "문제풀기",
+//     Dday: 6,
+//     todos: [
+//       {
+//         id: 1,
+//         content: "밥 먹기",
+//         rank: "아주 중요",
+//         isChecked: true,
+//       },
+//       {
+//         id: 2,
+//         content: "토익 풀기",
+//         rank: "보통",
+//         isChecked: true,
+//       },
+//       {
+//         id: 3,
+//         content: "토익 풀기",
+//         rank: "보통",
+//         isChecked: true,
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     title: "밤새기",
+//     Dday: 3,
+//     todos: [
+//       {
+//         id: 1,
+//         content: "체력을 충전하기",
+//         rank: "아주 중요",
+//         isChecked: false,
+//       },
+//       {
+//         id: 2,
+//         content: "술을 마시기",
+//         rank: "보통",
+//         isChecked: false,
+//       },
+//     ],
+//   },
+//   {
+//     id: 3,
+//     title: "코딩을 공부하기",
+//     Dday: 3,
+//     todos: [],
+//   },
+// ];
+
 const TaskCard = ({ listData }) => {
+  const [IsChecked, setIsChecked] = useState();
+
+  const toggleCheck = (listId, id) => {
+    const itemChecked = listData[listId - 1].todos[id - 1].isChecked;
+    // 클릭한 아이템의 checked 상태
+    // 클릭한 아이템의 checked 상태를 state 에 set
+    setIsChecked(itemChecked);
+    if (IsChecked) {
+      setIsChecked(false);
+    } else {
+      setIsChecked(true);
+    }
+    console.log(IsChecked);
+  };
   const colorList = [
     Colors.lavender,
     Colors.pink,
@@ -156,7 +225,13 @@ const TaskCard = ({ listData }) => {
                 {data.todos.map(list => (
                   <Item line={list.isChecked}>
                     <CheckDiv>
-                      {list.isChecked ? <Checked /> : <Normal />}
+                      {list.isChecked ? (
+                        <Checked
+                          onClick={() => toggleCheck(data.id, list.id)}
+                        />
+                      ) : (
+                        <Normal onClick={() => toggleCheck(data.id, list.id)} />
+                      )}
                     </CheckDiv>
                     <div>
                       <p key={list.id}>{list.content}</p>
