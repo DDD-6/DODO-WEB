@@ -23,7 +23,7 @@ const CheckBoxButton = styled.button`
   }
 `;
 
-function CheckBox({ onActive, onUnActive }) {
+function CheckBox({ isChecked, onActive, onUnActive }) {
   const [active, setActive] = useState(false);
 
   function onToggle(e) {
@@ -35,18 +35,24 @@ function CheckBox({ onActive, onUnActive }) {
   }
 
   return (
-    <CheckBoxButton type="button" onClick={e => onToggle(e)}>
+    <CheckBoxButton
+      type="button"
+      className={isChecked ? "active" : ""}
+      onClick={e => onToggle(e)}
+    >
       {active && <img src={CheckedIcon} alt="체크됨" />}
     </CheckBoxButton>
   );
 }
 
 CheckBox.propTypes = {
+  isChecked: PropTypes.bool,
   onActive: PropTypes.oneOf([PropTypes.func, undefined]),
   onUnActive: PropTypes.oneOf([PropTypes.func, undefined]),
 };
 
 CheckBox.defaultProps = {
+  isChecked: false,
   onActive: undefined,
   onUnActive: undefined,
 };

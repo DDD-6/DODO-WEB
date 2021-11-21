@@ -80,11 +80,13 @@ const Item = styled.div`
     margin-left: 12px;
 
     p:nth-child(1) {
-      color: ${props => (props.line ? Colors.black_opacity_40 : Colors.black)};
-      text-decoration: ${props => (props.line ? "line-through" : "none")};
+      color: ${({ isChecked, theme }) =>
+        theme.color[isChecked ? "black_opacity_40" : "black"]};
+      text-decoration: ${({ isChecked }) =>
+        isChecked ? "line-through" : "none"};
     }
     p:nth-child(2) {
-      display: ${props => (props.line ? "none" : "block")};
+      display: ${({ isChecked }) => (isChecked ? "none" : "block")};
     }
   }
   // 점 세 개 버튼
@@ -120,73 +122,24 @@ const InfoText = styled.p`
   line-height: 24px;
 `;
 
-// const TESTDATA = [
-//   {
-//     id: 1,
-//     title: "문제풀기",
-//     Dday: 6,
-//     todos: [
-//       {
-//         id: 1,
-//         content: "밥 먹기",
-//         rank: "아주 중요",
-//         isChecked: true,
-//       },
-//       {
-//         id: 2,
-//         content: "토익 풀기",
-//         rank: "보통",
-//         isChecked: true,
-//       },
-//       {
-//         id: 3,
-//         content: "토익 풀기",
-//         rank: "보통",
-//         isChecked: true,
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     title: "밤새기",
-//     Dday: 3,
-//     todos: [
-//       {
-//         id: 1,
-//         content: "체력을 충전하기",
-//         rank: "아주 중요",
-//         isChecked: false,
-//       },
-//       {
-//         id: 2,
-//         content: "술을 마시기",
-//         rank: "보통",
-//         isChecked: false,
-//       },
-//     ],
-//   },
-//   {
-//     id: 3,
-//     title: "코딩을 공부하기",
-//     Dday: 3,
-//     todos: [],
-//   },
-// ];
-
-const TaskCard = ({ listData }) => {
-  const [IsChecked, setIsChecked] = useState();
-
-  const toggleCheck = (listId, id) => {
-    const itemChecked = listData[listId - 1].todos[id - 1].isChecked;
-    // 클릭한 아이템의 checked 상태
-    // 클릭한 아이템의 checked 상태를 state 에 set
-    setIsChecked(itemChecked);
-    if (itemChecked) {
-      setIsChecked(false);
+const TaskCard = ({ taskData }) => {
+  const [todoCheckData, setTodoCheckData] = useState(
+    taskData.todos.map(todo => todo.isChecked),
+  );
+  const toggleCheck = todoIndex => {
+    // !api: 체크 함수
+    const res = true;
+    if (res) {
+      console.log("변경됨");
+      // 1.번째 해당 todo아이템의 id 가 todoId 찾아서 그 인덱스 값을 가져오기
+      setTodoCheckData(
+        todoCheckData.map((checkedValue, i) =>
+          i === todoIndex ? !checkedValue : checkedValue,
+        ),
+      );
     } else {
-      setIsChecked(true);
+      console.error("에러남");
     }
-    console.log(IsChecked);
   };
   const colorList = [
     Colors.lavender,
@@ -194,64 +147,49 @@ const TaskCard = ({ listData }) => {
     Colors.skyblue,
     Colors.yellow,
   ];
-  const randomIndex = Math.floor(Math.random() * 3);
   return (
-    <>
-      {listData.map(data =>
-        data.todos.length === 0 ? (
-          <TaskCardDiv color={colorList[randomIndex]}>
-            <ListDiv>
-              <TitleDiv>
-                <RectangleIcon />
-                <Title>{data.title}</Title>
-                <p>D-{data.Dday}</p>
-              </TitleDiv>
-              <InfoDiv>
-                <Plus />
-                <InfoText>할 일을 등록하고 관리해보세요.</InfoText>
-              </InfoDiv>
-            </ListDiv>
-          </TaskCardDiv>
+    <TaskCardDiv color={colorList[taskData.id % 4]}>
+      <ListDiv>
+        <TitleDiv>
+          <RectangleIcon />
+          <Title>{taskData.title}</Title>
+          <p>D-{taskData.dDay}</p>
+        </TitleDiv>
+        {taskData.todos.length > 0 ? (
+          <ListItemDiv>
+            {/* 체크 UI */}
+            {taskData.todos.map((task, i) => (
+              <Item isChecked={todoCheckData[i]}>
+                <CheckDiv>
+                  {task.isChecked ? (
+                    <Checked onClick={() => toggleCheck(task.isChecked)} />
+                  ) : (
+                    <Normal onClick={() => toggleCheck(task.isChecked)} />
+                  )}
+                </CheckDiv>
+                <div>
+                  <p key={task.id}>{task.content}</p>
+                  <p>{task.rank}</p>
+                </div>
+                <DotThreeVertical />
+              </Item>
+            ))}
+          </ListItemDiv>
         ) : (
-          <TaskCardDiv color={colorList[randomIndex]}>
-            <ListDiv>
-              <TitleDiv>
-                <RectangleIcon />
-                <Title>{data.title}</Title>
-                <p>D-{data.Dday}</p>
-              </TitleDiv>
-              <ListItemDiv>
-                {/* 체크 UI */}
-                {data.todos.map(list => (
-                  <Item line={list.isChecked}>
-                    <CheckDiv>
-                      {list.isChecked ? (
-                        <Checked
-                          onClick={() => toggleCheck(data.id, list.id)}
-                        />
-                      ) : (
-                        <Normal onClick={() => toggleCheck(data.id, list.id)} />
-                      )}
-                    </CheckDiv>
-                    <div>
-                      <p key={list.id}>{list.content}</p>
-                      <p>{list.rank}</p>
-                    </div>
-                    <DotThreeVertical />
-                  </Item>
-                ))}
-              </ListItemDiv>
-            </ListDiv>
-          </TaskCardDiv>
-        ),
-      )}
-    </>
+          <InfoDiv>
+            <button type="button">
+              <Plus />
+              <InfoText>할 일을 등록하고 관리해보세요.</InfoText>
+            </button>
+          </InfoDiv>
+        )}
+      </ListDiv>
+    </TaskCardDiv>
   );
 };
 
 TaskCard.propTypes = {
-  // backgroundColor: PropTypes.string.isRequired,
-  listData: PropTypes.array.isRequired,
+  taskData: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.any])).isRequired,
 };
 
 export default TaskCard;
