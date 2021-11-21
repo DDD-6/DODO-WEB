@@ -181,7 +181,7 @@ const TaskCard = ({ listData }) => {
     // 클릭한 아이템의 checked 상태
     // 클릭한 아이템의 checked 상태를 state 에 set
     setIsChecked(itemChecked);
-    if (IsChecked) {
+    if (itemChecked) {
       setIsChecked(false);
     } else {
       setIsChecked(true);

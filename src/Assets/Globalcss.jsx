@@ -49,6 +49,16 @@ html{
   font-size: 20px;
   font-family: 'Pretendard Variable';
 }
+h1 {
+	font-size: 32px;
+	font-weight: 800;
+	line-height: 42px;
+}
+h2 {
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 32px;
+}
 `;
 
 const GlobalCss = () => {

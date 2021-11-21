@@ -5,6 +5,7 @@ import { ReactComponent as Xbtn } from "../../Assets/icons/Xbtn.svg";
 import Dim from "./Dim";
 
 const ModalDiv = styled.div`
+  font-family: "Pretendard Variable";
   display: ${props => (props.visible ? "block" : "none")};
   position: fixed;
   top: 253px;

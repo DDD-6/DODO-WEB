@@ -8,10 +8,10 @@ const TooltipDiv = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  width: ${(props) => props.width};
+  width: ${props => props.width};
   min-width: 100px;
   min-height: 40px;
-  height: ${(props) => props.height};
+  height: ${props => props.height};
   left: 16px;
   background-color: black;
   color: white;
