@@ -13,13 +13,10 @@ const ModalDiv = styled.div`
   z-index: 1;
   box-sizing: border-box;
   width: 288px;
-  height: 234px;
+  height: auto;
   padding: 16px;
   border-radius: 16px;
   background-color: #ffffff;
-  & > div {
-    height: 112px;
-  }
 `;
 
 const ModalTitleDiv = styled.div`
@@ -34,12 +31,19 @@ const ModalTitleDiv = styled.div`
     font-size: 20px;
     line-height: 34px;
   }
+
+  svg:hover {
+    cursor: pointer;
+  }
 `;
 
 const ModalInfoDiv = styled.div`
   width: 256px;
   font-size: 16px;
   line-height: 24px;
+  & > p {
+    width: 100%;
+  }
 `;
 
 // props로 제목, 설명, visible(모달창 속성), closeModal(모달을 닫는 func) 을 받습니다.
@@ -68,15 +72,13 @@ const Modal = ({ title, description, visible, closeModal }) => {
     <>
       <Dim visible={visible} closeModal={closeModal} />
       <ModalDiv visible={visible}>
-        <div>
-          <ModalTitleDiv>
-            <p>{title}</p>
-            <Xbtn onClick={closeModal} />
-          </ModalTitleDiv>
-          <ModalInfoDiv>
-            <p>{description}</p>
-          </ModalInfoDiv>
-        </div>
+        <ModalTitleDiv>
+          <p>{title}</p>
+          <Xbtn onClick={closeModal} />
+        </ModalTitleDiv>
+        <ModalInfoDiv>
+          <p>{description}</p>
+        </ModalInfoDiv>
       </ModalDiv>
     </>
   );

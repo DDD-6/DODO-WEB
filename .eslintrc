@@ -19,7 +19,10 @@
   },
   "plugins": ["react"],
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": false }],
+    "prettier/prettier": [
+      "error",
+      { "endOfLine": "auto", "singleQuote": false }
+    ],
     "react/jsx-props-no-spreading": [
       2,
       {
