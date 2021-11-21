@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { BasicButton, CloseButton } from "../Components/Elements/Button";
-import InputField from "../Components/Elements/InputField";
+import InputField, { MemoField } from "../Components/Elements/InputField";
 import Tip from "../Components/Elements/Tip";
-import { initEpic, initEpicData } from "../lib/dataModel";
+import { initEpic } from "../lib/dataModel";
 
 const Root = styled.main`
   padding: 16px 16px 122px;
@@ -46,6 +47,10 @@ const EpicTitle = styled.p`
   order: -1;
 `;
 
+const MemoTitle = styled.p`
+  ${({ theme }) => theme.font.Text2_Regular}
+`;
+
 const FixedContainer = styled.div`
   width: 100%;
   position: fixed;
@@ -63,101 +68,163 @@ const ButtonWrap = styled.div`
 `;
 
 export default function MakingProjectPage() {
-  const proj = useRef({
-    name: "",
-    data: "",
-  });
-  const lastEpicId = useRef(0);
+  const history = useHistory();
+  const location = useLocation();
+  const proj = useRef({ name: "", dueDate: "" });
+  const epicLastNum = useRef(0);
+  const epicsDate = useRef(initEpic);
+  const [epicIds, setEpicIds] = useState([epicLastNum]);
+  const memo = useRef("");
 
-  const [epics, setEpics] = useState(
-    initEpic.map(epic => ({ ...epic, id: lastEpicId })),
-  );
-
-  function setProjectData(type, value) {
-    if (type !== "name" || type === "date") return;
-    proj.current = { ...proj, [type]: value };
+  function setProjectData(key, value) {
+    proj.current = { ...proj, [key]: value };
   }
 
-  function setEpicData(i, type, value) {
-    if (epics.length < i + 1 || type !== "name" || type === "date") return;
-    const newEpics = epics;
-    newEpics[i] = {
-      ...epics[i],
-      [type]: value,
-    };
-    setEpics(newEpics);
+  function setEpicData(i, key, value) {
+    epicsDate.current = epicsDate.current.map((epic, ei) =>
+      ei === i ? { ...epic, [key]: value } : epic,
+    );
+  }
+
+  function addEpic() {
+    epicLastNum.current += 1;
+    setEpicIds([...epicIds, epicLastNum.current]);
+  }
+
+  function removeEpic(target) {
+    epicsDate.current = epicsDate.current.filter(epic => epic.id !== target);
+    setEpicIds(epicIds.filter(epicId => epicId !== target));
+  }
+
+  function clickNext() {
+    switch (location.pathname) {
+      case "/make-project/2":
+        window.alert(proj.current, epicsDate.current);
+        break;
+      case "/make-project/1":
+        history.push("/make-project/2");
+        break;
+      default:
+        history.push("/make-project/1");
+    }
   }
 
   return (
     <Root>
-      <h2>
-        가장 이루고 싶은
-        <br />
-        목표가 무엇인가요?
-      </h2>
-      <MakingTip contents="바디 프로필 촬영, 취업뽀개기, 시험통과(OPIC, PEET) 등" />
-      <InputField
-        id="프로젝트 목표 이름"
-        label="프로젝트 목표"
-        inputProps={{
-          placeholder: "이 프로젝트의 최종 목표 입력",
-          onChange: e => setProjectData("name", e.currentTarget.value),
-        }}
-      />
-      <InputField
-        id="프로젝트 목표 D-day"
-        label="D-day 선택"
-        inputType="date"
-        inputProps={{
-          placeholder: "예) 21년 12월 22일",
-          onChange: e => setProjectData("date", e.currentTarget.value),
-        }}
-      />
-      <EpicContainer>
-        <EpicUList>
-          {epics.map((epic, i) => (
-            <EpicMain key={`${proj.current.name}-${epic.id}`}>
-              <EpicTitle>{`하위 목표 ${i + 1}`}</EpicTitle>
+      <Switch>
+        <Route
+          exact
+          path="/make-project"
+          component={() => (
+            <>
+              <h2>가장 이루고 싶은 목표가 무엇인가요?</h2>
+              <MakingTip
+                contents={
+                  <>
+                    바디 프로필 촬영, 취업뽀개기,
+                    <br />
+                    시험통과(OPIC, PEET) 등
+                  </>
+                }
+              />
               <InputField
-                id={`하위 목표-${epic.id}-name`}
-                label={`하위 목표 ${i + 1}`}
+                id="프로젝트 목표"
+                label="프로젝트 목표"
                 inputProps={{
                   placeholder: "이 프로젝트의 최종 목표 입력",
-                  onChange: e => setEpicData(i, "name", e.currentTarget.value),
+                  onChange: e => setProjectData("name", e.currentTarget.value),
                 }}
               />
               <InputField
-                id={`하위 목표-${epic.id}-D-day`}
+                id="프로젝트 D-day"
                 label="D-day 선택"
                 inputType="date"
                 inputProps={{
-                  onChange: e => setEpicData(i, "date", e.currentTarget.value),
+                  placeholder: "예) 21-12-22",
+                  onChange: e =>
+                    setProjectData("dueDate", e.currentTarget.value),
                 }}
               />
-              {i !== 0 && (
-                <CloseButton
-                  onClick={() =>
-                    setEpics(epics.filter((_epic, epicI) => epicI !== i))
-                  }
-                />
-              )}
-            </EpicMain>
-          ))}
-        </EpicUList>
-        <BasicButton
-          onClick={() => {
-            lastEpicId.current += 1;
-            setEpics([...epics, { ...initEpicData, id: lastEpicId.current }]);
-          }}
-        >
-          하위 목표 추가
-        </BasicButton>
-      </EpicContainer>
-      <h2>나에게 한마디 남기기</h2>
+            </>
+          )}
+        />
+        <Route
+          path="/make-project/1"
+          component={() => (
+            <EpicContainer>
+              <h2>가장 이루고 싶은 목표가 무엇인가요?</h2>
+              <MakingTip
+                contents={
+                  <>
+                    구체적인 목표를 잡을 수록 동기부여가
+                    <br />
+                    잘되요. 예)체지방 n%감량, 특정과목
+                    <br />
+                    80점 맞기
+                  </>
+                }
+              />
+              <EpicUList>
+                {epicIds.map((epicId, i) => (
+                  <EpicMain key={`${proj.current.name}-${epicId}`}>
+                    <EpicTitle>{`하위 목표 ${i + 1}`}</EpicTitle>
+                    <InputField
+                      id={`하위 목표-${epicId}-name`}
+                      label={`하위 목표 ${i + 1}`}
+                      inputProps={{
+                        defaultValue: epicsDate.current[i].name,
+                        placeholder: "이 프로젝트의 최종 목표 입력",
+                        onChange: e =>
+                          setEpicData(i, "name", e.currentTarget.value),
+                      }}
+                    />
+                    <InputField
+                      id={`하위 목표-${epicId}-D-day`}
+                      label="D-day 선택"
+                      inputType="date"
+                      inputProps={{
+                        defaultValue: epicsDate.current[i].dueDate,
+                        onChange: e =>
+                          setEpicData(i, "date", e.currentTarget.value),
+                      }}
+                    />
+                    {i !== 0 && (
+                      <CloseButton onClick={() => removeEpic(epicId)} />
+                    )}
+                  </EpicMain>
+                ))}
+              </EpicUList>
+              <BasicButton onClick={() => addEpic()}>
+                하위 목표 추가
+              </BasicButton>
+            </EpicContainer>
+          )}
+        />
+        <Route
+          path="/make-project/2"
+          component={() => (
+            <>
+              <h2>나에게 한마디 남기기</h2>
+              <MemoTitle>
+                {proj.current.dueDate}의 <br />
+                나에게,
+              </MemoTitle>
+              <MemoField
+                id="프로젝트-memo"
+                textareaProps={{
+                  placeholder: "한마디를 남겨보세요.",
+                  onChange: e => {
+                    memo.current = e.currentTarget.value;
+                  },
+                }}
+              />
+            </>
+          )}
+        />
+      </Switch>
       <FixedContainer>
         <ButtonWrap>
-          <BasicButton>넘어가기</BasicButton>
-          <BasicButton>다음</BasicButton>
+          <BasicButton onClick={() => clickNext()}>다음</BasicButton>
         </ButtonWrap>
       </FixedContainer>
     </Root>

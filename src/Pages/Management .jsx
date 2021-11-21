@@ -25,15 +25,6 @@ const MainProject = styled.div`
   gap: 16px;
   overflow-x: scroll;
   padding-bottom: 24px;
-
-  &::-webkit-scrollbar {
-    height: 3px;
-    background: ${({ theme }) => theme.color.grey_200};
-    cursor: pointer;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.color.black};
-  }
 `;
 
 const ProjectButton = styled.button`
