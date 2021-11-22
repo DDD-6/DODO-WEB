@@ -78,6 +78,7 @@ textarea {
 	padding: 0;
 	border: 0;
 	cursor: pointer;
+	background-color: white;
 }
 input, textarea {
 	&::placeholder {
