@@ -4,7 +4,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { ReactComponent as RectangleIcon } from "../../Assets/icons/Rectangle.svg";
 import { ReactComponent as Normal } from "../../Assets/icons/ListIconNormal.svg";
 import { ReactComponent as Checked } from "../../Assets/icons/ListIconChecked.svg";
 import { ReactComponent as Plus } from "../../Assets/icons/PlusCircle.svg";
@@ -18,9 +17,9 @@ const TaskCardDiv = styled.div`
   min-height: 176px;
   padding: 16px;
   border-radius: 16px;
-  background-color: ${Colors.lavender};
-  background-color: ${props => props.color};
+  background-color: ${({ theme }) => theme.color.pink};
   box-sizing: border-box;
+  margin: 15px 0;
 `;
 
 const Title = styled.p`
@@ -29,20 +28,12 @@ const Title = styled.p`
   width: 180px;
   padding: 0;
   margin: 0;
-  margin-left: 10px;
   line-height: 34px;
   color: ${Colors.black_opacity_80};
 `;
 
 const TitleDiv = styled.div`
-  display: flex;
-  align-items: center;
   margin-bottom: 20px;
-  // d-day
-  & > p:nth-child(3) {
-    font-size: 14px;
-    line-height: 24px;
-  }
 `;
 
 const ListDiv = styled.div`
@@ -116,9 +107,9 @@ const InfoText = styled.p`
   line-height: 24px;
 `;
 
-const TaskCard = ({ taskData }) => {
+const ToDayCard = ({ todayData }) => {
   const [todoCheckData, setTodoCheckData] = useState(
-    taskData.todos ? taskData.todos.map(todo => todo.isChecked) : [],
+    todayData.todos ? todayData.todos.map(todo => todo.isChecked) : [],
   );
   const toggleCheck = todoIndex => {
     // !api: 체크 함수
@@ -142,17 +133,15 @@ const TaskCard = ({ taskData }) => {
     Colors.yellow,
   ];
   return (
-    <TaskCardDiv color={colorList[taskData.id % 4]}>
+    <TaskCardDiv color={colorList[todayData.id % 4]}>
       <ListDiv>
         <TitleDiv>
-          <RectangleIcon />
-          <Title>{taskData.title}</Title>
-          <p>D-{taskData.dDay}</p>
+          <Title>오늘 할 일</Title>
         </TitleDiv>
-        {taskData.todos.length > 0 ? (
+        {todayData.todos.length > 0 ? (
           <ListItemDiv>
             {/* 체크 UI */}
-            {taskData.todos.map((task, i) => (
+            {todayData.todos.map((task, i) => (
               <Item isChecked={todoCheckData[i]}>
                 <CheckDiv>
                   {task.isChecked ? (
@@ -181,8 +170,9 @@ const TaskCard = ({ taskData }) => {
   );
 };
 
-TaskCard.propTypes = {
-  taskData: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.any])).isRequired,
+ToDayCard.propTypes = {
+  todayData: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.any]))
+    .isRequired,
 };
 
-export default TaskCard;
+export default ToDayCard;

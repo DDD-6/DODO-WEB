@@ -5,6 +5,7 @@ import { ReactComponent as Info } from "../../Assets/icons/Info.svg";
 
 const Container = styled.div`
   display: flex;
+  width: 288px;
   background-color: #e2ec63;
   border-radius: 16px;
   padding: 16px;
