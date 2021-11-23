@@ -8,6 +8,7 @@ import ManagementPage from "../Pages/Management ";
 import Test from "../Pages/Test";
 import ProjectCategoryPage from "../Pages/ProjectCategory";
 import ProjectDetailPage from "../Pages/ProjectDetail";
+import MakingTodoPage from "../Pages/MakingTodo";
 
 const ProjectWrapper = styled.div`
   ${({ theme }) => theme.main_width}
@@ -25,6 +26,7 @@ const Router = () => {
           <Route exact path="/management" component={ManagementPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/make-project" component={MakingProjectPage} />
+          <Route path="/make-todo" component={MakingTodoPage} />
           <Route path="/project-detail/:id" component={ProjectDetailPage} />
           <Route exact path="/project" component={ProjectCategoryPage} />
           <Route path="/test" component={Test} />

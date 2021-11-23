@@ -1,8 +1,10 @@
 /* eslint-disable no-undef */
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import TaskCard from "../Components/Elements/TaskCard";
 import TodayCard from "../Components/Elements/ToDayCard";
+import CaretDown from "../Assets/icons/CaretDown.svg";
 
 const Root = styled.main``;
 
@@ -11,14 +13,14 @@ const Greeting = styled.h2`
 `;
 
 const SelectTask = styled.select`
-  width: 107px;
+  width: 35%;
   font-family: inherit;
   font-weight: 600;
   font-size: 20px;
   outline: none;
   border: none;
   appearance: none;
-  background: url(../Assets/icons/CaretDown.svg) no-repeat right 50%;
+  background: url(${CaretDown}) no-repeat right;
   ::-ms-expend {
     display: none;
   }
@@ -80,7 +82,7 @@ const taskData = [
   },
   {
     id: 2,
-    title: "수능 준비하기",
+    title: "수능 준비",
     dDay: 4,
     todos: [
       {
@@ -100,33 +102,34 @@ const taskData = [
 ];
 
 const TODAY_DATA = {
-  todos: [
-    {
-      id: 2,
-      content: "할 일2",
-      rank: "보통",
-      isChecked: true,
-    },
-    {
-      id: 3,
-      content: "할 일3",
-      rank: "매우중요",
-      isChecked: false,
-    },
-  ],
+  // todos: [
+  //   {
+  //     id: 2,
+  //     content: "할 일2",
+  //     rank: "보통",
+  //     isChecked: true,
+  //   },
+  //   {
+  //     id: 3,
+  //     content: "할 일3",
+  //     rank: "매우중요",
+  //     isChecked: false,
+  //   },
+  // ],
 };
 
 const USER_NAME = {
   name: "민수",
 };
 
-export default function MakingProjectPage() {
+export default function Main() {
+  const history = useHistory();
   const [Visible, setVisible] = useState(false);
   const [selectedTask, setselectedTask] = useState(taskData[0]);
   const createToday = () => {
     // 오늘의 할 일 생성 api 연결
-    console.log("createToday func");
     setVisible(true);
+    history.push("/make-todo");
   };
   const selectTask = e => {
     const selectedTaskData = taskData.find(

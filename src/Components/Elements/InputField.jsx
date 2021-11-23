@@ -37,6 +37,7 @@ const Input = styled.input`
 
   &[type="date"] {
     cursor: text;
+    font-family: inherit;
   }
 
   &[type="date"]::-webkit-calendar-picker-indicator {
