@@ -2,6 +2,20 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+*:not(html):not(body){
+	box-sizing: border-box;
+
+	&::-webkit-scrollbar {
+		width: 3px;
+    height: 3px;
+    background: ${({ theme }) => theme.color.grey_200};
+    cursor: pointer;
+		border-radius: 99px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.color.black};
+  }
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -49,15 +63,27 @@ html{
   font-size: 20px;
   font-family: 'Pretendard Variable';
 }
-h1 {
+h2 {
 	font-size: 32px;
 	font-weight: 800;
 	line-height: 42px;
 }
-h2 {
+h3 {
 	font-size: 24px;
 	font-weight: 700;
 	line-height: 32px;
+}
+button,
+textarea {
+	padding: 0;
+	border: 0;
+	cursor: pointer;
+	background-color: white;
+}
+input, textarea {
+	&::placeholder {
+		color: ${({ theme }) => theme.color.grey_300}
+	}
 }
 `;
 

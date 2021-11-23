@@ -11,7 +11,6 @@ const Container = styled.div`
   padding: 16px;
   font-family: "Pretendard Variable";
   box-sizing: border-box;
-  margin: 0 16px;
 `;
 
 const Contents = styled.div`
@@ -33,9 +32,9 @@ const Contents = styled.div`
 `;
 
 // tip 의 내용을 props로 전달 받습니다.
-const Tip = ({ contents }) => {
+const Tip = ({ contents, ...rest }) => {
   return (
-    <Container>
+    <Container {...rest}>
       <Info width="24" height="24" />
       <Contents>
         <p>TIP</p>

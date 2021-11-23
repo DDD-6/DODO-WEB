@@ -6,6 +6,7 @@ import WarningIcon from "../../Assets/icons/CircleWavyWarning.svg";
 import EyeIcon from "../../Assets/icons/Eye.svg";
 import EyeClosedIcon from "../../Assets/icons/EyeClosed.svg";
 import XCircleIcon from "../../Assets/icons/XCircle.svg";
+import CalendarIcon from "../../Assets/icons/Calendar.svg";
 
 const InputFieldset = styled.fieldset`
   position: relative;
@@ -33,6 +34,15 @@ const Input = styled.input`
     outline: 0;
     border-color: #000000;
   }
+
+  &[type="date"] {
+    cursor: text;
+  }
+
+  &[type="date"]::-webkit-calendar-picker-indicator {
+    background: url(${CalendarIcon});
+    cursor: pointer;
+  }
 `;
 
 const InputButtonWrap = styled.div`
@@ -53,7 +63,7 @@ const InputButtonWrap = styled.div`
   }
 `;
 
-const InputDescript = styled.p`
+const Descript = styled.p`
   display: flex;
   align-items: center;
   margin: 0;
@@ -68,7 +78,7 @@ const InputDescript = styled.p`
   }
 `;
 
-const ErrorDescript = styled(InputDescript)``;
+const ErrorDescript = styled(Descript)``;
 
 const InputField = ({
   id,
@@ -103,7 +113,7 @@ const InputField = ({
   function onChangeInput(e) {
     if (e.currentTarget.value === "" && hasValue) setHasVlaue(false);
     else if (e.currentTarget.value !== "" && !hasValue) setHasVlaue(true);
-    onChange(e);
+    if (onChange) onChange(e);
   }
 
   useEffect(() => {
@@ -150,10 +160,10 @@ const InputField = ({
       </InputFieldset>
       {descripttion &&
         (!isError ? (
-          <InputDescript>
+          <Descript>
             <img src={CharicterIcon} alt="캐릭터 아이콘" />
             {descripttion}
-          </InputDescript>
+          </Descript>
         ) : (
           <ErrorDescript>
             <img src={WarningIcon} alt="에러 아이콘" />
@@ -182,3 +192,88 @@ InputField.defaultProps = {
 };
 
 export default InputField;
+
+const TextFieldWrap = styled.div`
+  padding: 16px 8px 16px 16px;
+  border-radius: 16px;
+  background: ${({ theme }) => theme.color.grey_50};
+  cursor: pointer;
+`;
+
+const TextField = styled.textarea`
+  ${({ theme }) => theme.font.Text1_Regular}
+
+  width: 100%;
+  height: 153px;
+  padding-right: 5px;
+  overflow-y: auto;
+  background: ${({ theme }) => theme.color.grey_50};
+  resize: none;
+
+  &:focus {
+    outline: 0;
+  }
+`;
+
+export const MemoField = ({
+  id,
+  label,
+  descripttion,
+  isError,
+  textareaProps,
+}) => {
+  const { onKeyUp, ...restTextareaProps } = textareaProps;
+  function clickTextFieldWrap(e) {
+    const $textarea = e.currentTarget.getElementsByTagName("textarea")[0];
+    if (!$textarea) {
+      console.error("필드를 찾을 수 없습니다.");
+      return;
+    }
+    $textarea.focus();
+  }
+
+  function keyupTextara(e) {
+    if (onKeyUp) onKeyUp(e);
+  }
+  return (
+    <>
+      <fieldset>
+        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+        <TextFieldWrap onClick={e => clickTextFieldWrap(e)}>
+          <TextField
+            id={id}
+            onKeyUp={e => keyupTextara(e)}
+            {...restTextareaProps}
+          />
+        </TextFieldWrap>
+      </fieldset>
+      {descripttion &&
+        (!isError ? (
+          <Descript>
+            <img src={CharicterIcon} alt="캐릭터 아이콘" />
+            {descripttion}
+          </Descript>
+        ) : (
+          <ErrorDescript>
+            <img src={WarningIcon} alt="에러 아이콘" />
+            {descripttion}
+          </ErrorDescript>
+        ))}
+    </>
+  );
+};
+
+MemoField.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  descripttion: PropTypes.string,
+  isError: PropTypes.bool,
+  textareaProps: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.any])),
+};
+
+MemoField.defaultProps = {
+  label: "",
+  descripttion: "",
+  isError: false,
+  textareaProps: {},
+};
